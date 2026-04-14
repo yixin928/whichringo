@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14型苹果人格测试 · 椎名林檎</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+            background: #945233; /* 深棕底色 */
+            color: #aea29c; /* 浅棕文字 */
+            line-height: 1.8;
+        }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        /* 语言切换按钮 */
+        .lang-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            color: #945233;
+            border: 2px solid #945233;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        .lang-btn:hover {
+            background: #945233;
+            color: #fff;
+        }
+        
+        /* 卡片通用样式 */
+        .card {
+            background: #fff;
+            border: 2px solid #945233;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        /* 开始页面 - 1:1复刻ORTI */
+        #start-page { padding: 60px 20px; }
+        .start-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .indicator-title {
+            font-size: 0.9em;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #945233;
+        }
+        /* 首页标题图片样式 */
+        .ringo-logo-img {
+            width: 300px;
+            margin: 0 auto 40px auto;
+            display: block;
+        }
+        .test-title {
+            font-size: 2.8em;
+            color: #945233;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            font-weight: 500;
+        }
+        .test-subtitle {
+            font-size: 1.2em;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+        .tags {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .tag {
+            background: #fff;
+            border: 1px solid #945233;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .start-btn {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            background: #945233;
+            color: #fff;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 24px rgba(148, 82, 51, 0.3);
+        }
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(148, 82, 51, 0.4);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.9em;
+            line-height: 2;
+        }
+        
+        /* 测试页面 */
+        #quiz-page { padding: 50px 20px; }
+        .progress { 
+            height: 4px; 
+            background: #E8E0D8; 
+            border-radius: 2px; 
+            margin-bottom: 50px; 
+            overflow: hidden; 
+        }
+        .progress-bar { 
+            height: 100%; 
+            background: #945233; 
+            width: 0%; 
+            transition: width 0.3s; 
+        }
+        .question { 
+            font-size: 1.4em; 
+            margin-bottom: 40px; 
+            color: #945233;
+            line-height: 1.8;
+        }
+        .options { display: flex; flex-direction: column; gap: 18px; }
+        .option { 
+            background: #fff; 
+            padding: 22px 26px; 
+            border-radius: 16px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            border: 2px solid transparent;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .option:hover { 
+            border-color: #945233; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(148, 82, 51, 0.1);
+        }
+        .option.selected { 
+            border-color: #945233; 
+            background: #F5EDE5; 
+        }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 50px; }
+        .btn { 
+            background: #945233; 
+            color: #fff; 
+            border: none; 
+            padding: 12px 32px; 
+            font-size: 1em; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            transition: all 0.3s;
+        }
+        .btn:hover { 
+            background: #A0522D; 
+            transform: translateY(-2px);
+        }
+        .btn-secondary { 
+            background: #E8E0D8; 
+            color: #945233; 
+        }
+        .btn-secondary:hover { 
+            background: #D9CCC0; 
+        }
+        /* 网易云音乐按钮样式 */
+        .music-btn {
+            display: block;
+            width: 220px;
+            margin: 30px auto 0;
+            background: #C10E0E; /* 网易云红色 */
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        .music-btn:hover {
+            background: #a10c0c;
+            transform: translateY(-2px);
+        }
+        
+        /* 结果页面 */
+        #result-page { padding: 60px 20px; }
+        
+        /* 苹果图标图片样式 */
+        .apple-img {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px auto;
+            display: block;
+            object-fit: contain;
+        }
+        
+        /* 模块一：人格结果 */
+        .result-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .result-personality {
+            font-size: 2.2em;
+            color: #945233;
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+        .result-artist {
+            font-size: 1.1em;
+            font-style: italic;
+        }
+        
+        /* 通用模块样式 */
+        .result-module {
+            background: #fff;
+            border: 2px solid #945233;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+        }
+        .result-module h3 {
+            font-size: 0.9em;
+            color: #945233;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        /* 模块二：歌词 */
+        .result-lyrics {
+            font-size: 1.15em;
+            color: #aea29c;
+            font-style: italic;
+            line-height: 2;
+        }
+        
+        /* 模块三：人格说明 */
+        .result-keyword {
+            font-size: 1.3em;
+            color: #945233;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        .result-trait {
+            font-size: 1.05em;
+            color: #aea29c;
+            line-height: 2;
+        }
+        
+        /* 模块四：灵魂伴侣 */
+        .soulmate-item {
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #E8E0D8;
+        }
+        .soulmate-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .soulmate-name {
+            font-size: 1.2em;
+            color: #945233;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .soulmate-lyrics {
+            font-size: 1em;
+            color: #aea29c;
+            font-style: italic;
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        .soulmate-desc {
+            font-size: 1em;
+            color: #aea29c;
+            line-height: 1.8;
+        }
+        
+        .restart-btn {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 语言切换按钮 -->
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+
+    <div class="container">
+        <!-- 开始页面 -->
+        <div id="start-page" class="page active">
+            <div class="card">
+                <div class="start-header">
+                    <div class="indicator-title">RINGO TYPE INDICATOR</div>
+                    
+                    <!-- 🔥 首页标题图片：替换src为你自己的图片链接即可 -->
+                    <img src="title.png" alt="椎名林檎" class="ringo-logo-img">
+                    
+                    <h1 class="test-title" data-zh="你是哪个苹果？" data-en="Which Apple are you?">你是哪个苹果？</h1>
+                    <p class="test-subtitle" data-zh="Who the hell is an Apple?" data-en="Who the hell is an Apple?">Who the hell is an Apple?</p>
+                </div>
+                
+                <div class="tags">
+                    <div class="tag" data-zh="17 QUESTIONS" data-en="17 QUESTIONS">17 QUESTIONS</div>
+                    <div class="tag" data-zh="3 MIN APPROX." data-en="3 MIN APPROX.">3 MIN APPROX.</div>
+                </div>
+                
+                <button class="start-btn" onclick="startQuiz()" data-zh="开始测试" data-en="Start Test">开始测试</button>
+            </div>
+            
+            <div class="footer">
+                <p data-zh="本网站为非盈利的粉丝创作，与 椎名林檎 及 EMI Records 无任何关联。所有歌名与歌词版权归原作者所有。" 
+                   data-en="This is a fan-made project. Not affiliated with SHEENA RINGO or EMI Records. All song titles and lyrics belong to their respective owners.">
+                    本网站为非盈利的粉丝创作，与 椎名林檎 及 EMI Records 无任何关联。所有歌名与歌词版权归原作者所有。
+                </p>
+                <p>This is a fan-made project. Not affiliated with SHEENA RINGO or EMI Records.</p>
+            </div>
+        </div>
+
+        <!-- 测试页面 -->
+        <div id="quiz-page" class="page">
+            <div class="card">
+                <div class="progress">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="question" id="question"></div>
+                <div class="options" id="options"></div>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="prev-btn" onclick="prevQuestion()" style="visibility: hidden;" data-zh="上一题" data-en="Previous">上一题</button>
+                    <button class="btn" id="next-btn" onclick="nextQuestion()" data-zh="下一题" data-en="Next">下一题</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 结果页面 -->
+        <div id="result-page" class="page">
+            <div class="card">
+                <!-- 🔥 结果页苹果图标：JS动态渲染，替换图片即可 -->
+                <img src="" alt="苹果人格" class="apple-img" id="apple-img">
+                <div class="result-header">
+                    <div class="result-personality" id="result-personality"></div>
+                    <div class="result-artist" id="result-artist"></div>
+                </div>
+
+                <!-- 模块二：歌词 -->
+                <div class="result-module">
+                    <h3 data-zh="对应歌词" data-en="Lyrics">对应歌词</h3>
+                    <div class="result-lyrics" id="result-lyrics"></div>
+                </div>
+
+                <!-- 模块三：人格说明 -->
+                <div class="result-module">
+                    <h3 data-zh="核心特质" data-en="Core Traits">核心特质</h3>
+                    <div class="result-keyword" id="result-keyword"></div>
+                    <div class="result-trait" id="result-trait"></div>
+                </div>
+
+                <!-- 模块四：灵魂伴侣 -->
+                <div class="result-module">
+                    <h3 data-zh="✨ 最佳灵魂伴侣" data-en="✨ Best Soulmate">✨ 最佳灵魂伴侣</h3>
+                    <div id="soulmate-container"></div>
+                </div>
+
+                <!-- 🔥 网易云音乐按钮 -->
+                <a href="" id="music-btn" class="music-btn" target="_blank">在网易云音乐听这首歌</a>
+
+                <button class="btn restart-btn" onclick="restartQuiz()" data-zh="再测一次" data-en="Take Again">再测一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 语言状态
+        let currentLang = 'zh';
+
+        // 🔥 苹果人格对应图片：替换src为你自己的图片链接
+        const appleImages = {
+            "黄苹果": "yellow.png",
+            "紫苹果": "purple.png",
+            "金苹果": "gold.png",
+            "青苹果": "green.png",
+            "灰苹果": "gray.png",
+            "黑苹果": "black.png",
+            "红苹果": "red.png",
+            "粉苹果": "pink.png",
+            "蓝苹果": "blue.png",
+            "橙苹果": "orange.png",
+            "透明苹果": "transparent.png",
+            "玫红苹果": "rose.png",
+            "褐色苹果": "brown.png",
+            "白苹果": "white.png"
+        };
+
+        // 🔥 网易云音乐歌曲链接
+        const musicUrls = {
+            "黄苹果": "https://music.163.com/#/song?id=33085030",
+            "紫苹果": "https://music.163.com/#/song?id=642723",
+            "金苹果": "https://music.163.com/#/song?id=642871",
+            "青苹果": "https://music.163.com/#/song?id=642893",
+            "灰苹果": "https://music.163.com/#/song?id=26434040",
+            "黑苹果": "https://music.163.com/#/song?id=22719344",
+            "红苹果": "https://music.163.com/#/song?id=642739",
+            "粉苹果": "https://music.163.com/#/song?id=28546134",
+            "蓝苹果": "https://music.163.com/#/song?id=642745",
+            "橙苹果": "https://music.163.com/#/song?id=22719237",
+            "透明苹果": "https://music.163.com/#/song?id=1367943094",
+            "玫红苹果": "https://music.163.com/#/song?id=22719315",
+            "褐色苹果": "https://music.163.com/#/song?id=642776",
+            "白苹果": "https://music.163.com/#/song?id=642681"
+        };
+
+        // 中英文数据
+        const data = {
+            zh: {
+                questions: [
+                    {
+                        question: "当暮色漫过窗沿，回望这一天，你心底最真切的感受是？",
+                        options: [
+                            { text: "哪怕只有片刻的心动与热烈，也足以抵消整日的平淡", types: ["黄苹果", "红苹果"] },
+                            { text: "在细碎的片段里琢磨意义，不会与喧嚣同频", types: ["紫苹果", "透明苹果"] },
+                            { text: "庆幸自己始终是生活的主角，远离平庸的裹挟", types: ["金苹果", "玫红苹果"] },
+                            { text: "只要身边有值得珍惜的细碎美好，便是圆满", types: ["青苹果", "橙苹果"] }
+                        ]
+                    },
+                    {
+                        question: "夜晚的街道不像白天那样讲逻辑。灯光模糊，时间变慢，很多事情开始变得“可以发生”。如果没有任何后果，你会：",
+                        options: [
+                            { text: "做一些白天不会允许的事", types: ["红苹果", "黑苹果"] },
+                            { text: "只是走着，让时间自然流动", types: ["橙苹果", "蓝苹果"] },
+                            { text: "突然感到一种无法解释的空洞", types: ["灰苹果", "褐色苹果"] },
+                            { text: "想起某个人，然后反复想象对话", types: ["粉苹果", "白苹果"] }
+                        ]
+                    },
+                    {
+                        question: "当深夜听到一首深情动听的歌，你最直观的感受是？",
+                        options: [
+                            { text: "任由情绪泛滥，哪怕只有片刻的热烈，也值得铭记", types: ["黄苹果", "黑苹果"] },
+                            { text: "陷入沉思，琢磨旋律里藏着的人生隐喻，不愿随波逐流", types: ["紫苹果", "透明苹果"] },
+                            { text: "不自觉跟着哼唱，仿佛自己也成了旋律里光芒万丈的主角", types: ["金苹果", "红苹果"] },
+                            { text: "轻轻附和，想起某个人，觉得光是遇见就足够幸运", types: ["青苹果", "粉苹果"] }
+                        ]
+                    },
+                    {
+                        question: "在一个需要“表现”的场合里，你忽然意识到：每个人都在扮演某种角色，而你也不例外。但你：",
+                        options: [
+                            { text: "享受这个舞台，并且有能力主导它", types: ["金苹果", "红苹果"] },
+                            { text: "冷眼观看一切，甚至能看穿规则", types: ["玫红苹果", "紫苹果"] },
+                            { text: "开始拆解“我为什么会这样表现”", types: ["透明苹果", "灰苹果"] },
+                            { text: "尽量保持自然，不想失去真实", types: ["蓝苹果", "橙苹果"] }
+                        ]
+                    },
+                    {
+                        question: "你明知道那句话是不成立的。逻辑是破碎的，语气是犹疑的，甚至连对方的眼神都在回避。但你还是相信了。",
+                        options: [
+                            { text: "你爱的是那种“接近毁灭的真实感”", types: ["黑苹果", "黄苹果"] },
+                            { text: "你只是想更靠近一点，再多知道一点", types: ["粉苹果", "透明苹果"] },
+                            { text: "你其实在旁观自己的下坠", types: ["灰苹果", "褐色苹果"] },
+                            { text: "你知道不健康，但你不想停止", types: ["白苹果", "黑苹果"] }
+                        ]
+                    },
+                    {
+                        question: "当你隐约感觉到一段关系可能会结束时，你不会马上表达出来。你更接近：",
+                        options: [
+                            { text: "明知道不健康，但还是想尽办法延续它，哪怕只是形式上的存在", types: ["白苹果", "灰苹果"] },
+                            { text: "只要还能在彼此的世界里有位置，就已经足够了", types: ["青苹果", "橙苹果"] },
+                            { text: "开始变得敏感，反复解读对方的每一句话和细节", types: ["粉苹果", "白苹果"] },
+                            { text: "情绪变得强烈，甚至会做出一些让关系更极端的行为", types: ["黑苹果", "黄苹果"] }
+                        ]
+                    },
+                    {
+                        question: "一段关系结束之后，真正留下来的不是对方。而是你在那段关系里，变成了谁。你最难放下的是：",
+                        options: [
+                            { text: "那种极端而短暂的情绪峰值", types: ["黄苹果", "黑苹果"] },
+                            { text: "那种“只要他在就够了”的状态", types: ["青苹果", "粉苹果"] },
+                            { text: "那个不断变化、甚至陌生的自己", types: ["透明苹果", "灰苹果"] },
+                            { text: "那种被注视、被需要的中心位置", types: ["金苹果", "红苹果"] }
+                        ]
+                    },
+                    {
+                        question: "当你梦见一个人，醒来后最强烈的感受是？",
+                        options: [
+                            { text: "偏执地想再见到他，哪怕只是在梦里，也想牢牢拥有", types: ["黑苹果", "白苹果"] },
+                            { text: "满心温柔，想起梦里的点滴，嘴角不自觉上扬", types: ["粉苹果", "青苹果"] },
+                            { text: "莫名的怅惘，不知道梦里的场景，是执念还是期许", types: ["灰苹果", "紫苹果"] },
+                            { text: "坦然释怀，明白梦境终究是虚幻，珍惜当下就好", types: ["橙苹果", "蓝苹果"] }
+                        ]
+                    },
+                    {
+                        question: "当你想表达爱意时，会说哪一句话？",
+                        options: [
+                            { text: "“只想用自己的声音，对你表达最真诚的爱”", types: ["粉苹果", "蓝苹果"] },
+                            { text: "“我爱着刚在我梦中死去的你，热烈而偏执”", types: ["黑苹果", "黄苹果"] },
+                            { text: "“光是你活在当下，就是我最大的幸福”", types: ["青苹果", "橙苹果"] },
+                            { text: "“你在看吗，这个毫不修饰做着真正自己的我”", types: ["蓝苹果", "红苹果"] }
+                        ]
+                    },
+                    {
+                        question: "当你意识到“欲望”正在发生时， 你抓住了它，并：",
+                        options: [
+                            { text: "顺从它——它本来就是生命的一部分", types: ["红苹果", "黄苹果"] },
+                            { text: "观察它——它只是心理与文化的产物", types: ["紫苹果", "透明苹果"] },
+                            { text: "运用它——它可以成为你的力量", types: ["金苹果", "玫红苹果"] },
+                            { text: "调整它——你更在意关系的稳定", types: ["蓝苹果", "青苹果"] }
+                        ]
+                    },
+                    {
+                        question: "一段关系结束后，你慢慢恢复正常生活，但有些东西没有消失。你最难放下的是：",
+                        options: [
+                            { text: "那些强烈到有点失控的情绪，它们短暂却非常真实", types: ["黄苹果", "黑苹果"] },
+                            { text: "那种只要对方存在，一切就有意义的感觉", types: ["青苹果", "粉苹果"] },
+                            { text: "在关系中不断变化的自己，你甚至不确定哪个才是真正的你", types: ["透明苹果", "灰苹果"] },
+                            { text: "那种被需要、被关注、被放在中心的位置", types: ["金苹果", "红苹果"] }
+                        ]
+                    },
+                    {
+                        question: "当你感到孤独时，会选择怎样的方式排解？",
+                        options: [
+                            { text: "沉浸在自己的世界里，反复琢磨自我的存在意义", types: ["透明苹果", "紫苹果"] },
+                            { text: "找一个角落，任由情绪坠落，不强迫自己振作", types: ["灰苹果", "褐色苹果"] },
+                            { text: "主动寻找热闹的场合，用喧嚣掩盖心底的孤独", types: ["金苹果", "红苹果"] },
+                            { text: "轻声呢喃心底的思念，哪怕对方听不见", types: ["粉苹果", "白苹果"] }
+                        ]
+                    },
+                    {
+                        question: "生活开始变得重复，没有明显的崩塌，但也没有明显的变化。你更接近：",
+                        options: [
+                            { text: "感觉自己在一点点被消耗，却很难真正跳出这种状态", types: ["褐色苹果", "灰苹果"] },
+                            { text: "接受这种节奏，觉得这就是生活本身，不需要额外解释", types: ["橙苹果", "蓝苹果"] },
+                            { text: "想制造一些波动，让事情至少短暂地变得不一样", types: ["黄苹果", "红苹果"] },
+                            { text: "会开始思考这种重复从哪里来，甚至想拆解它的结构", types: ["紫苹果", "透明苹果"] }
+                        ]
+                    },
+                    {
+                        question: "对于“幸福”，你的理解是？",
+                        options: [
+                            { text: "当下的每一刻都刚刚好，不贪求未来，不沉溺过去", types: ["橙苹果", "蓝苹果"] },
+                            { text: "身边有那个值得珍惜的人，ta的存在就是全部", types: ["青苹果", "粉苹果"] },
+                            { text: "能够自由地做自己，不被束缚，放任心底的热爱", types: ["红苹果", "黄苹果"] },
+                            { text: "找到自我的答案，解开藏在心底的所有谜题", types: ["透明苹果", "紫苹果"] }
+                        ]
+                    },
+                    {
+                        question: "当你回顾自己的过往，最想说的一句话是？",
+                        options: [
+                            { text: "那些短暂而热烈的瞬间，拼凑成了我完整的人生", types: ["黄苹果", "红苹果"] },
+                            { text: "我在日复一日的平凡中，弄丢了自己，也留住了自己", types: ["褐色苹果", "灰苹果"] },
+                            { text: "我始终在寻找自我，哪怕迷茫，也从未停止脚步", types: ["透明苹果", "紫苹果"] },
+                            { text: "我爱过，迷惘过，颓废过，却始终没有放弃自己", types: ["灰苹果", "白苹果"] }
+                        ]
+                    },
+                    {
+                        question: "你有没有过这样的瞬间：你突然像一个旁观者一样看着自己。",
+                        options: [
+                            { text: "经常，而且会越看越复杂，好像自己本身就是一个谜", types: ["透明苹果", "灰苹果"] },
+                            { text: "偶尔，会把它当作一种理解世界和自我的方式", types: ["紫苹果", "玫红苹果"] },
+                            { text: "有，但你会刻意保持距离，不让自己陷进去", types: ["玫红苹果", "蓝苹果"] },
+                            { text: "很少，你更习惯直接生活而不是反复审视", types: ["蓝苹果", "橙苹果"] }
+                        ]
+                    },
+                    {
+                        question: "如果不考虑现实限制，你更想成为哪种人：",
+                        options: [
+                            { text: "情绪和欲望都很直接，不需要压抑自己", types: ["红苹果", "黄苹果"] },
+                            { text: "可以稳定地爱人与被爱，不需要反复确认", types: ["青苹果", "橙苹果"] },
+                            { text: "完全理解自己，不再困惑", types: ["透明苹果", "紫苹果"] },
+                            { text: "被看见、被认可，被自己在意的人在意", types: ["金苹果", "粉苹果"] }
+                        ]
+                    }
+                ],
+                results: {
+                    "黄苹果": {
+                        personality: "黄苹果",
+                        song: "長く短い祭",
+                        keyword: "短暂而热烈",
+                        trait: "你很清楚，很多事情不会长久。但正因为如此，你才更认真地去点燃它。你不害怕结束，你害怕的是没有发生。你愿意穿上不属于日常的衣服，把情绪涂抹得过于浓烈，只为了让某个夜晚成立。你不是不知道一切会散场。你只是觉得——在散场之前，应该有人真正活过。",
+                        lyrics: "今宵全員が魁、一枚目よ（今晚所有人都是先锋、都是主角喔）/皆銘々取り取りの衣装（穿着各色各样的衣裳）/奔放な命被う化粧（遮盖住奔放生命的浓妆）",
+                        soulmate: [
+                            { name: "红苹果 - 本能", lyrics: "紐 解いて 生命に 擬う（解除束缚，比拟着生命）/気紛れを 許して（请容许我的反复无常）", desc: "同样追求极致的生命体验，你们会一起创造无数难忘的瞬间" },
+                            { name: "黑苹果 - 浴室", lyrics: "今日は特別に笑ってばかりのあたしは丁度（今天异常地笑个不停的我）/さっき一度夢で死んだあんたを仕方無く愛す（正好热烈地爱着刚在我梦中死去的你）", desc: "你们对爱的理解同样极端，能读懂彼此骨子里的疯狂与热烈" }
+                        ]
+                    },
+                    "紫苹果": {
+                        personality: "紫苹果",
+                        song: "17",
+                        keyword: "神秘与独特",
+                        trait: "你习惯把世界往里折叠，而不是向外展开。很多人以为你在沉默，其实你只是拒绝参与那些不成立的共识。你不急着被理解。甚至可以说，你对“被理解”这件事本身抱有怀疑。如果他们说你不同，你不会反驳。你只是轻轻承认，然后继续成为你自己。",
+                        lyrics: "they say that i am different/I think it's an honour",
+                        soulmate: [
+                            { name: "透明苹果 - マ・シェリ", lyrics: "自らが最大級の謎(自己才是那至高无上的谜)", desc: "你们都对自我和世界有深刻思考，能进行灵魂层面的交流" },
+                            { name: "玫红苹果 - おこのみで", lyrics: "新しく演出して さあ何方でも（新的演出 请吧 要怎么样）/…お好きな様に（都依您喜好）", desc: "同样保持着与世界的距离，不会互相打扰，却能彼此懂得" }
+                        ]
+                    },
+                    "金苹果": {
+                        personality: "金苹果",
+                        song: "歌舞伎町の女王",
+                        keyword: "闪耀与支配",
+                        trait: "你知道人群是如何运作的。你也知道，光并不会自动落在任何人身上。所以你走进去，让它落在你身上。你不是被看见的，你是让“看见”这件事发生的人。哪怕场面混乱，你也能在其中建立秩序，就像一场只属于你的演出。你不需要被允许成为中心。你只是从一开始就站在那里。",
+                        lyrics: "大遊戯場歌舞伎町（大游戏场的歌舞伎町）/今夜からは此の町で（从今夜开始就在这里）/娘のあたしが女王（女儿的我将成为女王）",
+                        soulmate: [
+                            { name: "玫红苹果 - おこのみで", lyrics: "新しく演出して さあ何方でも（新的演出 请吧 要怎么样）/…お好きな様に（都依您喜好）", desc: "ta的冷静能平衡你的张扬，是你最好的观众和支持者" },
+                            { name: "红苹果 - 本能", lyrics: "紐 解いて 生命に 擬う（解除束缚，比拟着生命）/気紛れを 許して（请容许我的反复无常）", desc: "ta的活力能为你的舞台增添更多色彩，你们是天生的搭档" }
+                        ]
+                    },
+                    "青苹果": {
+                        personality: "青苹果",
+                        song: "幸福論",
+                        keyword: "青涩的幸福",
+                        trait: "你对幸福的理解很简单，甚至简单到有点危险。你相信，只要那个人还在世界上呼吸，这件事本身就足够。不需要证明，不需要占有，不需要未来。你偶尔也会怀疑自己是不是太容易满足。但下一秒，你又觉得——这种温柔不应该被修正。",
+                        lyrics: "君が其処に生きているという（光是你活在当下这个事实）/真実だけで幸福なんです（就是我最大的幸福）",
+                        soulmate: [
+                            { name: "粉苹果 - プライベイト", lyrics: "だからいまちゃんと顔を見せて（所以现在好好让我看看你的脸）/…只本音の愛をあげたい…（只想用自己的声音表达爱意）", desc: "你们都拥有细腻柔软的内心，能给彼此最温柔的陪伴" },
+                            { name: "蓝苹果 - あおぞら", lyrics: "本当の自分に正直で飾らないあたしで（你告诉我，那个毫不修饰做着真正自己的我）/良いのだって教えてくれたね（是最好的）", desc: "ta的温暖和稳定会给你足够的安全感，让你安心做自己" }
+                        ]
+                    },
+                    "灰苹果": {
+                        personality: "灰苹果",
+                        song: "眩晕",
+                        keyword: "坠落中的清醒",
+                        trait: "你并不是突然失去方向的。你是一步一步，看着自己偏离。你会想，如果继续下去，会掉到哪里。但你没有停。奇怪的是，你并不完全抗拒这种坠落。甚至在某些瞬间，你会觉得——那种失重感，比稳定更真实。",
+                        lyrics: "ねぇ、ちょっぴり考えてみて（喂、仔仔细细思考看看）/何処迄 堕ちて行っちゃうの（最终会往下坠落到哪里为止呢）",
+                        soulmate: [
+                            { name: "透明苹果 - マ・シェリ", lyrics: "自らが最大級の謎(自己才是那至高无上的谜)", desc: "ta能理解你的迷茫和挣扎，不会强迫你振作" },
+                            { name: "褐色苹果 - 丸ノ内サディスティック", lyrics: "報酬は入社後並行線で（进了公司之后收入就是平行线啊）/東京は愛せど何も無い（虽然深爱东京 可是我什么都没有）", desc: "你们有相似的生命体验，能在彼此身上找到共鸣" }
+                        ]
+                    },
+                    "黑苹果": {
+                        personality: "黑苹果",
+                        song: "浴室",
+                        keyword: "危险的爱",
+                        trait: "你爱人的方式，带着一点不打算被原谅的成分。你可以笑着说话，甚至看起来比任何人都轻松。但你心里很清楚，一旦开始，你就不会只是“喜欢”。你会靠近、占有、甚至在脑海里经历一场失去，然后再把对方留在原地。你不是不懂边界。你只是从来没打算停在边界上。",
+                        lyrics: "今日は特別に笑ってばかりのあたしは丁度（今天异常地笑个不停的我）/さっき一度夢で死んだあんたを仕方無く愛す（正好热烈地爱着刚在我梦中死去的你）",
+                        soulmate: [
+                            { name: "黄苹果 - 長く短い祭", lyrics: "今宵全員が魁、一枚目よ（今晚所有人都是先锋、都是主角喔）/皆銘々取り取りの衣装（穿着各色各样的衣裳）/奔放な命被う化粧（遮盖住奔放生命的浓妆）", desc: "你们都爱得热烈而极端，能满足彼此对爱的极致渴望" },
+                            { name: "白苹果 - ギブス", lyrics: "Don't U think? / I wanna be with U", desc: "ta的依附能满足你的占有欲，你们是彼此的救赎与深渊" }
+                        ]
+                    },
+                    "红苹果": {
+                        personality: "红苹果",
+                        song: "本能",
+                        keyword: "欲望与释放",
+                        trait: "你不太擅长解释自己。因为你更习惯直接发生。当情绪、欲望、冲动出现时，你不会急着把它们归类。你更愿意顺着它们走，哪怕方向并不稳定。你不是混乱，你只是没有削弱自己。你允许自己反复无常，也允许生命保持原始的样子。",
+                        lyrics: "紐 解いて 生命に 擬う（解除束缚，比拟着生命）/気紛れを 許して（请容许我的反复无常）",
+                        soulmate: [
+                            { name: "黄苹果 - 長く短い祭", lyrics: "今宵全員が魁、一枚目よ（今晚所有人都是先锋、都是主角喔）/皆銘々取り取りの衣装（穿着各色各样的衣裳）/奔放な命被う化粧（遮盖住奔放生命的浓妆）", desc: "你们都遵从本能生活，能一起体验生命的无限可能" },
+                            { name: "金苹果 - 歌舞伎町の女王", lyrics: "大遊戯場歌舞伎町（大游戏场的歌舞伎町）/今夜からは此の町で（从今夜开始就在这里）/娘のあたしが女王（女儿的我将成为女王）", desc: "ta能为你提供舞台，而你能为ta带来无限活力" }
+                        ]
+                    },
+                    "粉苹果": {
+                        personality: "粉苹果",
+                        song: "プライベイト",
+                        keyword: "靠近的方式",
+                        trait: "你很少直接说“我在想你”。但你会用别的方式反复确认对方的存在。你在意语气、停顿、甚至一个不完整的回应。你不是多疑，你只是太认真地对待每一个细节。你靠近一个人的方式很轻，但不会停止。你想看清对方，也想被对方慢慢看见。",
+                        lyrics: "だからいまちゃんと顔を見せて（所以现在好好让我看看你的脸）/…只本音の愛をあげたい…（只想用自己的声音表达爱意）",
+                        soulmate: [
+                            { name: "青苹果 - 幸福論", lyrics: "君が其処に生きているという（光是你活在当下这个事实）/真実だけで幸福なんです（就是我最大的幸福）", desc: "你们都细腻敏感，能捕捉到彼此最细微的情绪变化" },
+                            { name: "橙苹果 - 旬", lyrics: "生きているうちはずっと句だと（活著的时候就是当旬期）", desc: "ta的从容能安抚你的不安，给你稳稳的幸福" }
+                        ]
+                    },
+                    "蓝苹果": {
+                        personality: "蓝苹果",
+                        song: "あおぞら",
+                        keyword: "温暖的真实",
+                        trait: "你不是没有复杂情绪。只是你不急着放大它们。你更相信一种简单的状态：不伪装、不夸张、不刻意成为谁。在这种状态里，你是稳定的，也是柔软的。你给别人的感觉像光，不刺眼，但一直在那里。你可能不张扬，但很少有人会忘记你。",
+                        lyrics: "本当の自分に正直で飾らないあたしで（你告诉我，那个毫不修饰做着真正自己的我）/良いのだって教えてくれたね（是最好的）",
+                        soulmate: [
+                            { name: "青苹果 - 幸福論", lyrics: "君が其処に生きているという（光是你活在当下这个事实）/真実だけで幸福なんです（就是我最大的幸福）", desc: "你们都追求简单真实的幸福，能给彼此最温暖的陪伴" },
+                            { name: "橙苹果 - 旬", lyrics: "生きているうちはずっと句だと（活著的时候就是当旬期）", desc: "你们的生活节奏高度契合，能一起享受平淡中的美好" }
+                        ]
+                    },
+                    "橙苹果": {
+                        personality: "橙苹果",
+                        song: "旬",
+                        keyword: "当下的节奏",
+                        trait: "你不太执着于解释人生。你更倾向于让它自然发生。你相信，每一个阶段都有它的“当旬期”，不需要提前，也不需要延长。你不会过度抓住，也不会刻意放手。你只是刚好在那个时间里，做着刚好的事情。",
+                        lyrics: "生きているうちはずっと句だと（活著的时候就是当旬期）",
+                        soulmate: [
+                            { name: "蓝苹果 - あおぞら", lyrics: "本当の自分に正直で飾らないあたしで（你告诉我，那个毫不修饰做着真正自己的我）/良いのだって教えてくれたね（是最好的）", desc: "你们都享受当下，能一起度过平静而美好的时光" },
+                            { name: "粉苹果 - プライベイト", lyrics: "だからいまちゃんと顔を見せて（所以现在好好让我看看你的脸）/…只本音の愛をあげたい…（只想用自己的声音表达爱意）", desc: "ta的细腻能为你的平淡生活增添色彩" }
+                        ]
+                    },
+                    "透明苹果": {
+                        personality: "透明苹果",
+                        song: "マ・シェリ",
+                        keyword: "自我之谜",
+                        trait: "你一直在看自己。不是简单地反思，而是几乎不停止地拆解。你会问，为什么是这样，而不是那样。你也会怀疑，那个被理解的“我”是否只是某种结构。你不急着找到答案。因为你逐渐意识到——你本身就是问题。",
+                        lyrics: "自らが最大級の謎(自己才是那至高无上的谜)",
+                        soulmate: [
+                            { name: "紫苹果 - 17", lyrics: "they say that i am different/I think it's an honour", desc: "你们都对自我和世界有深刻思考，能进行灵魂对话" },
+                            { name: "灰苹果 - 眩晕", lyrics: "ねぇ、ちょっぴり考えてみて（喂、仔仔细细思考看看）/何処迄 堕ちて行っちゃうの（最终会往下坠落到哪里为止呢）", desc: "ta能理解你的迷茫，不会强迫你给出答案" }
+                        ]
+                    },
+                    "玫红苹果": {
+                        personality: "玫红苹果",
+                        song: "おこのみで",
+                        keyword: "冷眼与距离",
+                        trait: "你可以参与任何场景，但你不会完全进入。你知道情绪是如何被制造的，也知道关系是如何运作的。所以你保留了一点距离，让自己始终清醒。别人以为你冷淡，其实你只是没有失去判断。你允许一切发生，但不会轻易被卷入。",
+                        lyrics: "新しく演出して さあ何方でも（新的演出 请吧 要怎么样）/…お好きな様に（都依您喜好）",
+                        soulmate: [
+                            { name: "金苹果 - 歌舞伎町の女王", lyrics: "大遊戯場歌舞伎町（大游戏场的歌舞伎町）/今夜からは此の町で（从今夜开始就在这里）/娘のあたしが女王（女儿的我将成为女王）", desc: "你是ta最好的观众，能欣赏ta的光芒而不迷失" },
+                            { name: "紫苹果 - 17", lyrics: "they say that i am different/I think it's an honour", desc: "你们都保持着与世界的距离，能彼此理解不被打扰" }
+                        ]
+                    },
+                    "褐色苹果": {
+                        personality: "褐色苹果",
+                        song: "丸ノ内サディスティック",
+                        keyword: "缓慢腐蚀",
+                        trait: "你没有崩溃。你只是慢慢失去感觉。生活像一条平行线，没有偏差，也没有出口。你甚至还能正常运作，但你知道有什么地方已经不对了。你并不是不想改变。只是那种无力，比疲惫更难对抗。",
+                        lyrics: "報酬は入社後並行線で（进了公司之后收入就是平行线啊）/東京は愛せど何も無い（虽然深爱东京 可是我什么都没有）",
+                        soulmate: [
+                            { name: "灰苹果 - 眩晕", lyrics: "ねぇ、ちょっぴり考えてみて（喂、仔仔细细思考看看）/何処迄 堕ちて行っちゃうの（最终会往下坠落到哪里为止呢）", desc: "你们有相似的生命体验，能互相理解彼此的无力" },
+                            { name: "透明苹果 - マ・シェリ", lyrics: "自らが最大級の謎(自己才是那至高无上的谜)", desc: "ta能帮你看清自己，找到改变的方向" }
+                        ]
+                    },
+                    "白苹果": {
+                        personality: "白苹果",
+                        song: "ギブス",
+                        keyword: "无法拆除的关系",
+                        trait: "你不是不知道这段关系让你受限。但你更无法承受“没有它”的状态。你把对方放在一个很难移动的位置，甚至愿意牺牲一部分自己去维持它。你不是天真。你只是已经习惯，把依附当成存在的方式。",
+                        lyrics: "Don't U think? / I wanna be with U",
+                        soulmate: [
+                            { name: "黑苹果 - 浴室", lyrics: "今日は特別に笑ってばかりのあたしは丁度（今天异常地笑个不停的我）/さっき一度夢で死んだあんたを仕方無く愛す（正好热烈地爱着刚在我梦中死去的你）", desc: "你们对关系的执念能互相满足，是彼此唯一的救赎" },
+                            { name: "粉苹果 - プライベイト", lyrics: "だからいまちゃんと顔を見せて（所以现在好好让我看看你的脸）/…只本音の愛をあげたい…（只想用自己的声音表达爱意）", desc: "ta的温柔能包容你的不安，给你想要的安全感" }
+                        ]
+                    }
+                }
+            },
+            en: {
+                questions: [
+                    {
+                        question: "As dusk falls over the windowsill, looking back on the day, what is your truest feeling?",
+                        options: [
+                            { text: "Even a moment of excitement and passion is enough to offset the dullness of the whole day", types: ["黄苹果", "红苹果"] },
+                            { text: "Find meaning in small fragments, not in sync with the noise", types: ["紫苹果", "透明苹果"] },
+                            { text: "Grateful to always be the protagonist of your own life, away from mediocrity", types: ["金苹果", "玫红苹果"] },
+                            { text: "As long as there are small beautiful things to cherish around you, it's complete", types: ["青苹果", "橙苹果"] }
+                        ]
+                    },
+                    {
+                        question: "Night streets don't follow logic like daytime. Lights blur, time slows down, and many things start to 'be possible'. If there were no consequences, you would:",
+                        options: [
+                            { text: "Do things you wouldn't allow yourself to do during the day", types: ["红苹果", "黑苹果"] },
+                            { text: "Just walk and let time flow naturally", types: ["橙苹果", "蓝苹果"] },
+                            { text: "Suddenly feel an inexplicable emptiness", types: ["灰苹果", "褐色苹果"] },
+                            { text: "Think of someone and imagine conversations over and over", types: ["粉苹果", "白苹果"] }
+                        ]
+                    },
+                    {
+                        question: "When you hear a soulful song late at night, what is your most intuitive feeling?",
+                        options: [
+                            { text: "Let emotions run wild, even a moment of passion is worth remembering", types: ["黄苹果", "黑苹果"] },
+                            { text: "Fall into deep thought, pondering the metaphors of life in the melody", types: ["紫苹果", "透明苹果"] },
+                            { text: "Unconsciously hum along, as if you are the shining protagonist in the melody", types: ["金苹果", "红苹果"] },
+                            { text: "Gently echo, think of someone, and feel lucky just to have met them", types: ["青苹果", "粉苹果"] }
+                        ]
+                    },
+                    {
+                        question: "In a situation where you need to 'perform', you suddenly realize: everyone is playing a role, and so are you. But you:",
+                        options: [
+                            { text: "Enjoy the stage and have the ability to lead it", types: ["金苹果", "红苹果"] },
+                            { text: "Watch everything coldly and even see through the rules", types: ["玫红苹果", "紫苹果"] },
+                            { text: "Start to dissect 'why am I behaving this way'", types: ["透明苹果", "灰苹果"] },
+                            { text: "Try to stay natural and don't want to lose your authenticity", types: ["蓝苹果", "橙苹果"] }
+                        ]
+                    },
+                    {
+                        question: "You know that sentence is not true. The logic is broken, the tone is hesitant, and even the other person's eyes are avoiding. But you still believed it.",
+                        options: [
+                            { text: "You love that 'near-destructive sense of reality'", types: ["黑苹果", "黄苹果"] },
+                            { text: "You just want to get a little closer and know a little more", types: ["粉苹果", "透明苹果"] },
+                            { text: "You are actually watching yourself fall", types: ["灰苹果", "褐色苹果"] },
+                            { text: "You know it's unhealthy, but you don't want to stop", types: ["白苹果", "黑苹果"] }
+                        ]
+                    },
+                    {
+                        question: "When you vaguely feel that a relationship might end, you don't express it immediately. You are more like:",
+                        options: [
+                            { text: "Knowing it's unhealthy, still try everything to prolong it, even if only formally", types: ["白苹果", "灰苹果"] },
+                            { text: "Just having a place in each other's worlds is enough", types: ["青苹果", "橙苹果"] },
+                            { text: "Become sensitive and overanalyze every word and detail", types: ["粉苹果", "白苹果"] },
+                            { text: "Emotions become intense, even do things that make the relationship more extreme", types: ["黑苹果", "黄苹果"] }
+                        ]
+                    },
+                    {
+                        question: "After a relationship ends, what really remains is not the other person. It's who you became in that relationship. What is hardest for you to let go of?",
+                        options: [
+                            { text: "Those extreme and fleeting emotional peaks", types: ["黄苹果", "黑苹果"] },
+                            { text: "That state of 'as long as he's there, it's enough'", types: ["青苹果", "粉苹果"] },
+                            { text: "The ever-changing, even unfamiliar version of yourself", types: ["透明苹果", "灰苹果"] },
+                            { text: "That central position of being watched and needed", types: ["金苹果", "红苹果"] }
+                        ]
+                    },
+                    {
+                        question: "When you dream of someone, what is the strongest feeling when you wake up?",
+                        options: [
+                            { text: "Obsessively want to see them again, even in dreams, want to hold them tightly", types: ["黑苹果", "白苹果"] },
+                            { text: "Full of tenderness, remember the details in the dream, smile unconsciously", types: ["粉苹果", "青苹果"] },
+                            { text: "Inexplicable melancholy, wondering if the dream was obsession or expectation", types: ["灰苹果", "紫苹果"] },
+                            { text: "Calmly let go, understand that dreams are illusions, cherish the present", types: ["橙苹果", "蓝苹果"] }
+                        ]
+                    },
+                    {
+                        question: "When you want to express love, which sentence would you say?",
+                        options: [
+                            { text: "\"I just want to express my truest love to you with my own voice\"", types: ["粉苹果", "蓝苹果"] },
+                            { text: "\"I love you who just died in my dream, passionately and obsessively\"", types: ["黑苹果", "黄苹果"] },
+                            { text: "\"Just the fact that you are alive right now is my greatest happiness\"", types: ["青苹果", "橙苹果"] },
+                            { text: "\"Are you watching? This is me, being completely myself without pretense\"", types: ["蓝苹果", "红苹果"] }
+                        ]
+                    },
+                    {
+                        question: "When you realize that 'desire' is happening, you grab it and:",
+                        options: [
+                            { text: "Obey it - it's part of life", types: ["红苹果", "黄苹果"] },
+                            { text: "Observe it - it's just a product of psychology and culture", types: ["紫苹果", "透明苹果"] },
+                            { text: "Use it - it can become your strength", types: ["金苹果", "玫红苹果"] },
+                            { text: "Adjust it - you care more about relationship stability", types: ["蓝苹果", "青苹果"] }
+                        ]
+                    },
+                    {
+                        question: "After a relationship ends, you slowly return to normal life, but some things don't disappear. What is hardest for you to let go of?",
+                        options: [
+                            { text: "Those intense, slightly失控 emotions, they are short but very real", types: ["黄苹果", "黑苹果"] },
+                            { text: "That feeling that as long as the other person exists, everything has meaning", types: ["青苹果", "粉苹果"] },
+                            { text: "The ever-changing self in the relationship, you're not even sure which is the real you", types: ["透明苹果", "灰苹果"] },
+                            { text: "That position of being needed, watched, and centered", types: ["金苹果", "红苹果"] }
+                        ]
+                    },
+                    {
+                        question: "When you feel lonely, what way do you choose to排解 it?",
+                        options: [
+                            { text: "Immerse in your own world, repeatedly pondering the meaning of your existence", types: ["透明苹果", "紫苹果"] },
+                            { text: "Find a corner, let emotions fall, don't force yourself to cheer up", types: ["灰苹果", "褐色苹果"] },
+                            { text: "Actively seek lively occasions, use noise to cover up the loneliness in your heart", types: ["金苹果", "红苹果"] },
+                            { text: "Whisper the thoughts in your heart, even if the other person can't hear", types: ["粉苹果", "白苹果"] }
+                        ]
+                    },
+                    {
+                        question: "Life starts to become repetitive, no obvious collapse, but no obvious change. You are more like:",
+                        options: [
+                            { text: "Feel yourself being consumed little by little, but it's hard to really jump out of this state", types: ["褐色苹果", "灰苹果"] },
+                            { text: "Accept this rhythm, feel that this is life itself, no need for extra explanation", types: ["橙苹果", "蓝苹果"] },
+                            { text: "Want to create some fluctuations, make things at least temporarily different", types: ["黄苹果", "红苹果"] },
+                            { text: "Start to think about where this repetition comes from, even want to dissect its structure", types: ["紫苹果", "透明苹果"] }
+                        ]
+                    },
+                    {
+                        question: "What is your understanding of 'happiness'?",
+                        options: [
+                            { text: "Every moment right now is just right, don't crave the future, don't dwell on the past", types: ["橙苹果", "蓝苹果"] },
+                            { text: "Having that cherished person by your side, their existence is everything", types: ["青苹果", "粉苹果"] },
+                            { text: "Be able to freely be yourself, not bound, let the love in your heart run wild", types: ["红苹果", "黄苹果"] },
+                            { text: "Find the answer to yourself, solve all the puzzles hidden in your heart", types: ["透明苹果", "紫苹果"] }
+                        ]
+                    },
+                    {
+                        question: "When you look back on your past, what is the one thing you most want to say?",
+                        options: [
+                            { text: "Those short and passionate moments make up my complete life", types: ["黄苹果", "红苹果"] },
+                            { text: "In the everyday平凡, I lost myself, but also kept myself", types: ["褐色苹果", "灰苹果"] },
+                            { text: "I'm always looking for myself, even if confused, I never stop", types: ["透明苹果", "紫苹果"] },
+                            { text: "I've loved, been confused, been颓废, but never gave up on myself", types: ["灰苹果", "白苹果"] }
+                        ]
+                    },
+                    {
+                        question: "Do you ever have moments where you suddenly look at yourself like an outsider?",
+                        options: [
+                            { text: "Often, and it gets more complicated, like I'm a mystery myself", types: ["透明苹果", "灰苹果"] },
+                            { text: "Occasionally, use it as a way to understand the world and myself", types: ["紫苹果", "玫红苹果"] },
+                            { text: "Yes, but I deliberately keep distance, don't let myself get trapped", types: ["玫红苹果", "蓝苹果"] },
+                            { text: "Rarely, I'm more used to living directly rather than反复审视", types: ["蓝苹果", "橙苹果"] }
+                        ]
+                    },
+                    {
+                        question: "If you didn't consider现实 limitations, what kind of person would you want to be:",
+                        options: [
+                            { text: "Emotions and desires are very direct, no need to suppress myself", types: ["红苹果", "黄苹果"] },
+                            { text: "Can stably love and be loved, no need for反复 confirmation", types: ["青苹果", "橙苹果"] },
+                            { text: "Completely understand myself, no longer confused", types: ["透明苹果", "紫苹果"] },
+                            { text: "Be seen, be recognized, be cared about by the people I care about", types: ["金苹果", "粉苹果"] }
+                        ]
+                    }
+                ],
+                results: {
+                    "黄苹果": {
+                        personality: "Yellow Apple",
+                        song: "Nagaku Mijikai Matsuri",
+                        keyword: "Short and Passionate",
+                        trait: "You know very well that many things won't last long. But that's precisely why you ignite them more seriously. You're not afraid of ending, you're afraid of not happening. You're willing to put on clothes that don't belong to everyday life, paint your emotions too strongly, just to make a certain night happen. You're not unaware that everything will end. You just think - before it ends, someone should have truly lived.",
+                        lyrics: "今宵全員が魁、一枚目よ / 皆銘々取り取りの衣装 / 奔放な命被う化粧",
+                        soulmate: [
+                            { name: "Red Apple - Honnou", lyrics: "紐 解いて 生命に 擬う / 気紛れを 許して", desc: "Both pursuing the ultimate life experience, you will create countless unforgettable moments together" },
+                            { name: "Black Apple - Yokushitsu", lyrics: "今日は特別に笑ってばかりのあたしは丁度 / さっき一度夢で死んだあんたを仕方無く愛す", desc: "Your understanding of love is equally extreme, you can read the madness and passion in each other's bones" }
+                        ]
+                    },
+                    "紫苹果": {
+                        personality: "Purple Apple",
+                        song: "17",
+                        keyword: "Mysterious and Unique",
+                        trait: "You're used to folding the world inward, not expanding it outward. Many people think you're silent, but you're just refusing to participate in those invalid consensuses. You're not in a hurry to be understood. In fact, you're skeptical of 'being understood' itself. If they say you're different, you won't反驳. You just gently admit it and continue to be yourself.",
+                        lyrics: "they say that i am different/I think it's an honour",
+                        soulmate: [
+                            { name: "Transparent Apple - Ma Cherie", lyrics: "自らが最大級の謎", desc: "Both having deep thoughts about self and the world, you can communicate on a soul level" },
+                            { name: "Rose Red Apple - Okonomi de", lyrics: "新しく演出して さあ何方でも / …お好きな様に", desc: "Both keeping distance from the world, not disturbing each other, yet understanding each other" }
+                        ]
+                    },
+                    "金苹果": {
+                        personality: "Gold Apple",
+                        song: "Kabukichou no Joou",
+                        keyword: "Shining and Dominant",
+                        trait: "You know how crowds work. You also know that light doesn't automatically fall on anyone. So you walk in and let it fall on you. You're not seen, you're the one who makes 'seeing' happen. Even if the scene is chaotic, you can establish order in it, like a performance that only belongs to you. You don't need permission to be the center. You just stood there from the beginning.",
+                        lyrics: "大遊戯場歌舞伎町 / 今夜からは此の町で / 娘のあたしが女王",
+                        soulmate: [
+                            { name: "Rose Red Apple - Okonomi de", lyrics: "新しく演出して さあ何方でも / …お好きな様に", desc: "Their calmness balances your flamboyance, they are your best audience and supporter" },
+                            { name: "Red Apple - Honnou", lyrics: "紐 解いて 生命に 擬う / 気紛れを 許して", desc: "Their vitality adds more color to your stage, you are natural partners" }
+                        ]
+                    },
+                    "青苹果": {
+                        personality: "Green Apple",
+                        song: "Koufukuron",
+                        keyword: "Innocent Happiness",
+                        trait: "Your understanding of happiness is very simple, even dangerously simple. You believe that as long as that person is still breathing in the world, that fact alone is enough. No proof needed, no possession needed, no future needed. You occasionally wonder if you're too easily satisfied. But the next second, you think again - this tenderness shouldn't be corrected.",
+                        lyrics: "君が其処に生きているという / 真実だけで幸福なんです",
+                        soulmate: [
+                            { name: "Pink Apple - Private", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Both having delicate and soft hearts, you can give each other the tenderest company" },
+                            { name: "Blue Apple - Aozora", lyrics: "本当の自分に正直で飾らないあたしで / 良いのだって教えてくれたね", desc: "Their warmth and stability give you enough security to be yourself" }
+                        ]
+                    },
+                    "灰苹果": {
+                        personality: "Gray Apple",
+                        song: "Memai",
+                        keyword: "Awareness in Falling",
+                        trait: "You didn't suddenly lose direction. You watched yourself deviate step by step. You wonder, if you continue, where will you fall. But you don't stop. Strangely, you don't completely resist this fall. Even in certain moments, you feel - that weightlessness is more real than stability.",
+                        lyrics: "ねぇ、ちょっぴり考えてみて / 何処迄 堕ちて行っちゃうの",
+                        soulmate: [
+                            { name: "Transparent Apple - Ma Cherie", lyrics: "自らが最大級の謎", desc: "They understand your confusion and struggle, won't force you to cheer up" },
+                            { name: "Brown Apple - Marunouchi Sadistic", lyrics: "報酬は入社後並行線で / 東京は愛せど何も無い", desc: "You have similar life experiences, can find resonance in each other" }
+                        ]
+                    },
+                    "黑苹果": {
+                        personality: "Black Apple",
+                        song: "Yokushitsu",
+                        keyword: "Dangerous Love",
+                        trait: "The way you love people carries a bit of unforgivable成分. You can talk with a smile, even look more relaxed than anyone. But you know very well in your heart that once it starts, you won't just 'like'. You will approach, possess, even experience a loss in your mind, then leave the other person in place. You're not unaware of boundaries. You just never intended to stop at the boundary.",
+                        lyrics: "今日は特別に笑ってばかりのあたしは丁度 / さっき一度夢で死んだあんたを仕方無く愛す",
+                        soulmate: [
+                            { name: "Yellow Apple - Nagaku Mijikai Matsuri", lyrics: "今宵全員が魁、一枚目よ / 皆銘々取り取りの衣装 / 奔放な命被う化粧", desc: "Both loving passionately and extremely, you can satisfy each other's ultimate desire for love" },
+                            { name: "White Apple - Gibbs", lyrics: "Don't U think? / I wanna be with U", desc: "Their attachment satisfies your possessiveness, you are each other's salvation and abyss" }
+                        ]
+                    },
+                    "红苹果": {
+                        personality: "Red Apple",
+                        song: "Honnou",
+                        keyword: "Desire and Release",
+                        trait: "You're not very good at explaining yourself. Because you're more used to just happening. When emotions, desires, impulses appear, you don't rush to categorize them. You're more willing to follow them, even if the direction isn't stable. You're not chaotic, you just haven't weakened yourself. You allow yourself to be fickle, and allow life to stay in its raw state.",
+                        lyrics: "紐 解いて 生命に 擬う / 気紛れを 許して",
+                        soulmate: [
+                            { name: "Yellow Apple - Nagaku Mijikai Matsuri", lyrics: "今宵全員が魁、一枚目よ / 皆銘々取り取りの衣装 / 奔放な命被う化粧", desc: "Both living by instinct, you can experience the infinite possibilities of life together" },
+                            { name: "Gold Apple - Kabukichou no Joou", lyrics: "大遊戯場歌舞伎町 / 今夜からは此の町で / 娘のあたしが女王", desc: "They provide you a stage, and you bring them infinite vitality" }
+                        ]
+                    },
+                    "粉苹果": {
+                        personality: "Pink Apple",
+                        song: "Private",
+                        keyword: "Way of Approaching",
+                        trait: "You rarely say 'I miss you' directly. But you'll repeatedly confirm the other person's existence in other ways. You care about tone, pauses, even an incomplete response. You're not多疑, you just take every detail too seriously. The way you approach someone is very light, but it doesn't stop. You want to see them clearly, and also want to be slowly seen by them.",
+                        lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…",
+                        soulmate: [
+                            { name: "Green Apple - Koufukuron", lyrics: "君が其処に生きているという / 真実だけで幸福なんです", desc: "Both delicate and sensitive, you can catch the subtlest emotional changes in each other" },
+                            { name: "Orange Apple - Shun", lyrics: "生きているうちはずっと句だと", desc: "Their calmness soothes your anxiety, gives you steady happiness" }
+                        ]
+                    },
+                    "蓝苹果": {
+                        personality: "Blue Apple",
+                        song: "Aozora",
+                        keyword: "Warm Authenticity",
+                        trait: "It's not that you don't have complex emotions. It's just that you don't rush to放大 them. You believe more in a simple state: not pretending, not exaggerating, not刻意 being someone. In this state, you are stable, and also soft. The feeling you give others is like light, not刺眼, but always there. You may not be flamboyant, but few people will forget you.",
+                        lyrics: "本当の自分に正直で飾らないあたしで / 良いのだって教えてくれたね",
+                        soulmate: [
+                            { name: "Green Apple - Koufukuron", lyrics: "君が其処に生きているという / 真実だけで幸福なんです", desc: "Both pursuing simple and true happiness, you can give each other the warmest company" },
+                            { name: "Orange Apple - Shun", lyrics: "生きているうちはずっと句だと", desc: "Your life rhythms are highly compatible, you can enjoy the beauty in平淡 together" }
+                        ]
+                    },
+                    "橙苹果": {
+                        personality: "Orange Apple",
+                        song: "Shun",
+                        keyword: "Rhythm of Now",
+                        trait: "You're not very执着 about explaining life. You're more inclined to let it happen naturally. You believe that every stage has its 'season', no need to advance, no need to extend. You don't grasp too much, and don't let go deliberately. You're just exactly in that time, doing exactly the right thing.",
+                        lyrics: "生きているうちはずっと句だと",
+                        soulmate: [
+                            { name: "Blue Apple - Aozora", lyrics: "本当の自分に正直で飾らないあたしで / 良いのだって教えてくれたね", desc: "Both enjoying the present, you can spend calm and beautiful times together" },
+                            { name: "Pink Apple - Private", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Their delicacy adds color to your平淡 life" }
+                        ]
+                    },
+                    "透明苹果": {
+                        personality: "Transparent Apple",
+                        song: "Ma Cherie",
+                        keyword: "Mystery of Self",
+                        trait: "You're always looking at yourself. Not simple reflection, but almost non-stop dissection. You ask, why is it like this, not like that. You also doubt if that understood 'me' is just some structure. You're not in a hurry to find the answer. Because you gradually realize - you are the question itself.",
+                        lyrics: "自らが最大級の謎",
+                        soulmate: [
+                            { name: "Purple Apple - 17", lyrics: "they say that i am different/I think it's an honour", desc: "Both having deep thoughts about self and the world, you can have soul conversations" },
+                            { name: "Gray Apple - Memai", lyrics: "ねぇ、ちょっぴり考えてみて / 何処迄 堕ちて行っちゃうの", desc: "They understand your confusion, won't force you to give answers" }
+                        ]
+                    },
+                    "玫红苹果": {
+                        personality: "Rose Red Apple",
+                        song: "Okonomi de",
+                        keyword: "Cold Eye and Distance",
+                        trait: "You can participate in any scene, but you won't fully enter. You know how emotions are manufactured, and how relationships work. So you keep a little distance, keep yourself清醒 always. Others think you're cold, but you just haven't lost your judgment. You allow everything to happen, but won't be easily drawn in.",
+                        lyrics: "新しく演出して さあ何方でも / …お好きな様に",
+                        soulmate: [
+                            { name: "Gold Apple - Kabukichou no Joou", lyrics: "大遊戯場歌舞伎町 / 今夜からは此の町で / 娘のあたしが女王", desc: "You are their best audience, can appreciate their light without getting lost" },
+                            { name: "Purple Apple - 17", lyrics: "they say that i am different/I think it's an honour", desc: "Both keeping distance from the world, can understand each other without being disturbed" }
+                        ]
+                    },
+                    "褐色苹果": {
+                        personality: "Brown Apple",
+                        song: "Marunouchi Sadistic",
+                        keyword: "Slow Corrosion",
+                        trait: "You haven't collapsed. You're just slowly losing feeling. Life is like a parallel line, no deviation, no exit. You can even function normally, but you know something is already wrong. It's not that you don't want to change. It's just that powerlessness is harder to fight than exhaustion.",
+                        lyrics: "報酬は入社後並行線で / 東京は愛せど何も無い",
+                        soulmate: [
+                            { name: "Gray Apple - Memai", lyrics: "ねぇ、ちょっぴり考えてみて / 何処迄 堕ちて行っちゃうの", desc: "You have similar life experiences, can understand each other's powerlessness" },
+                            { name: "Transparent Apple - Ma Cherie", lyrics: "自らが最大級の謎", desc: "They help you see yourself clearly, find direction for change" }
+                        ]
+                    },
+                    "白苹果": {
+                        personality: "White Apple",
+                        song: "Gibbs",
+                        keyword: "Unremovable Relationship",
+                        trait: "It's not that you don't know this relationship limits you. But you can't bear the state of 'not having it' more. You put the other person in a position that's hard to move, even willing to sacrifice part of yourself to maintain it. You're not naive. You've just gotten used to taking attachment as a way of existence.",
+                        lyrics: "Don't U think? / I wanna be with U",
+                        soulmate: [
+                            { name: "Black Apple - Yokushitsu", lyrics: "今日は特別に笑ってばかりのあたしは丁度 / さっき一度夢で死んだあんたを仕方無く愛す", desc: "Your obsession with relationships can satisfy each other, you are each other's only salvation" },
+                            { name: "Pink Apple - Private", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Their tenderness包容 your anxiety, gives you the security you want" }
+                        ]
+                    }
+                }
+            }
+        };
+
+        let currentQuestion = 0;
+        let scores = {};
+        let answers = [];
+
+        // 初始化分数
+        function initScores() {
+            scores = {};
+            Object.keys(data.zh.results).forEach(type => {
+                scores[type] = 0;
+            });
+        }
+
+        // 语言切换
+        function toggleLang() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.getElementById('lang-btn').textContent = currentLang === 'zh' ? 'EN' : '中文';
+            
+            // 更新所有带data属性的元素
+            document.querySelectorAll('[data-zh]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+            
+            // 如果在测试页面，重新渲染题目
+            if (document.getElementById('quiz-page').classList.contains('active')) {
+                showQuestion();
+            }
+        }
+
+        // 显示页面
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // 开始测试
+        function startQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            initScores();
+            showPage("quiz-page");
+            showQuestion();
+        }
+
+        // 显示题目
+        function showQuestion() {
+            const questions = data[currentLang].questions;
+            const question = questions[currentQuestion];
+            document.getElementById("question").textContent = question.question;
+            
+            const optionsContainer = document.getElementById("options");
+            optionsContainer.innerHTML = "";
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement("div");
+                optionDiv.className = "option";
+                optionDiv.textContent = option.text;
+                optionDiv.onclick = () => selectOption(index);
+                
+                // 恢复已选状态
+                if (answers[currentQuestion] === index) {
+                    optionDiv.classList.add("selected");
+                }
+                
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            // 更新进度条
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById("progress-bar").style.width = progress + "%";
+
+            // 更新导航按钮
+            document.getElementById("prev-btn").style.visibility = currentQuestion === 0 ? "hidden" : "visible";
+            document.getElementById("next-btn").textContent = currentQuestion === questions.length - 1 ? 
+                (currentLang === 'zh' ? "查看结果" : "See Result") : 
+                (currentLang === 'zh' ? "下一题" : "Next");
+        }
+
+        // 选择选项
+        function selectOption(index) {
+            answers[currentQuestion] = index;
+            
+            // 更新UI
+            document.querySelectorAll(".option").forEach((option, i) => {
+                option.classList.toggle("selected", i === index);
+            });
+        }
+
+        // 上一题
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // 下一题
+        function nextQuestion() {
+            if (answers[currentQuestion] === undefined) {
+                alert(currentLang === 'zh' ? "请先选择一个选项~" : "Please select an option first~");
+                return;
+            }
+
+            if (currentQuestion < data[currentLang].questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                calculateResult();
+            }
+        }
+
+        // 计算结果
+        function calculateResult() {
+            const questions = data[currentLang].questions;
+            answers.forEach((answerIndex, questionIndex) => {
+                const selectedTypes = questions[questionIndex].options[answerIndex].types;
+                selectedTypes.forEach(type => {
+                    if (scores[type] !== undefined) scores[type]++;
+                });
+            });
+
+            // 找出最高分人格
+            let maxScore = 0;
+            let resultTypes = [];
+            Object.keys(scores).forEach(type => {
+                if (scores[type] > maxScore) {
+                    maxScore = scores[type];
+                    resultTypes = [type];
+                } else if (scores[type] === maxScore) {
+                    resultTypes.push(type);
+                }
+            });
+
+            // 随机选择一个结果（并列时）
+            const resultType = resultTypes[Math.floor(Math.random() * resultTypes.length)];
+            showResult(resultType);
+        }
+
+        // 显示结果
+        function showResult(type) {
+            const result = data[currentLang].results[type];
+            
+            // 模块一：苹果图片+人格+歌名
+            document.getElementById("apple-img").src = appleImages[type];
+            document.getElementById("apple-img").alt = result.personality;
+            document.getElementById("result-personality").textContent = result.personality;
+            document.getElementById("result-artist").textContent = `Sheena Ringo · ${result.song}`;
+            
+            // 模块二：歌词 / 自动换行
+            const formattedLyrics = result.lyrics.replace(/\//g, '<br>');
+            document.getElementById("result-lyrics").innerHTML = formattedLyrics;
+            
+            // 模块三：人格说明
+            document.getElementById("result-keyword").textContent = result.keyword;
+            document.getElementById("result-trait").textContent = result.trait;
+            
+            // 模块四：灵魂伴侣
+            const soulmateContainer = document.getElementById("soulmate-container");
+            soulmateContainer.innerHTML = "";
+            result.soulmate.forEach(soulmate => {
+                const soulmateItem = document.createElement("div");
+                soulmateItem.className = "soulmate-item";
+                soulmateItem.innerHTML = `
+                    <div class="soulmate-name">${soulmate.name}</div>
+                    <div class="soulmate-lyrics">${soulmate.lyrics}</div>
+                    <div class="soulmate-desc">${soulmate.desc}</div>
+                `;
+                soulmateContainer.appendChild(soulmateItem);
+            });
+
+            // 网易云音乐按钮链接
+            document.getElementById("music-btn").href = musicUrls[type];
+
+            showPage("result-page");
+        }
+
+        // 重新测试
+        function restartQuiz() {
+            startQuiz();
+        }
+    </script>
+</body>
+</html>
