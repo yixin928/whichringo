@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+            font-family: "SimSun", "Songti SC", "Noto Serif SC", "Times New Roman", Georgia, serif; 
             background: #945233; /* 深棕底色 */
             color: #aea29c; /* 浅棕文字 */
             line-height: 1.8;
@@ -49,7 +49,9 @@
         /* 开始页面 */
         #start-page { padding: 60px 20px; }
         .start-header {
+            position: relative;
             text-align: center;
+            padding-top: 60px; 
             margin-bottom: 40px;
         }
         .indicator-title {
@@ -61,9 +63,12 @@
         }
         /* 首页标题图片样式 */
         .ringo-logo-img {
-            width: 300px;
-            margin: 0 auto 40px auto;
-            display: block;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 120px; /* 可微调：w-100/w-140 */
+            height: auto;
+            opacity: 0.85;
         }
         .test-title {
             font-size: 2.8em;
@@ -185,7 +190,7 @@
             display: block;
             width: 220px;
             margin: 30px auto 0;
-            background: #945233
+            background: #945233;
             color: #fff;
             border: none;
             padding: 12px 24px;
@@ -384,7 +389,11 @@
                 </div>
 
                 <!-- 网易云音乐按钮 -->
-                <a href="" id="music-btn" class="music-btn" target="_blank">在网易云音乐听这首歌</a>
+                <a href="" id="music-btn" class="music-btn" target="_blank" 
+                   data-zh="在网易云音乐听这首歌" 
+                   data-en="Listen on NetEase Cloud Music">
+                    在网易云音乐听这首歌
+                </a>
 
                 <button class="btn restart-btn" onclick="restartQuiz()" data-zh="再测一次" data-en="Take Again">再测一次</button>
             </div>
@@ -395,22 +404,22 @@
         // 语言状态
         let currentLang = 'zh';
 
-        // 🔥 苹果人格对应图片：替换src为你自己的图片链接
+        // 🔥 苹果人格对应图片
         const appleImages = {
-            "黄苹果": "yellow.png",
-            "紫苹果": "purple.png",
-            "金苹果": "gold.png",
-            "青苹果": "green.png",
-            "灰苹果": "gray.png",
-            "黑苹果": "black.png",
-            "红苹果": "red.png",
-            "粉苹果": "pink.png",
-            "蓝苹果": "blue.png",
-            "橙苹果": "orange.png",
-            "透明苹果": "transparent.png",
-            "玫红苹果": "rose.png",
-            "褐色苹果": "brown.png",
-            "白苹果": "white.png"
+            "黄苹果": "assets/images/黄苹果.png",
+            "紫苹果": "assets/images/紫苹果.png",
+            "金苹果": "assets/images/金苹果.png",
+            "青苹果": "assets/images/青苹果.png",
+            "灰苹果": "assets/images/灰苹果.png",
+            "黑苹果": "assets/images/黑苹果.png",
+            "红苹果": "assets/images/红苹果.png",
+            "粉苹果": "assets/images/粉苹果.png",
+            "蓝苹果": "assets/images/蓝苹果.png",
+            "橙苹果": "assets/images/橙苹果.png",
+            "透明苹果": "assets/images/透明苹果.png",
+            "玫红苹果": "assets/images/玫红苹果.png",
+            "褐色苹果": "assets/images/棕苹果.png",
+            "白苹果": "assets/images/白苹果.png"
         };
 
         // 🔥 网易云音乐歌曲链接
@@ -636,7 +645,7 @@
                     },
                     "灰苹果": {
                         personality: "灰苹果",
-                        song: "眩晕",
+                        song: "眩暈",
                         keyword: "坠落中的清醒",
                         trait: "你并不是突然失去方向的。你是一步一步，看着自己偏离。你会想，如果继续下去，会掉到哪里。但你没有停。奇怪的是，你并不完全抗拒这种坠落。甚至在某些瞬间，你会觉得——那种失重感，比稳定更真实。",
                         lyrics: "ねぇ、ちょっぴり考えてみて（喂、仔仔细细思考看看）/何処迄 堕ちて行っちゃうの（最终会往下坠落到哪里为止呢）",
@@ -708,7 +717,7 @@
                         lyrics: "自らが最大級の謎(自己才是那至高无上的谜)",
                         soulmate: [
                             { name: "紫苹果 - 17", lyrics: "they say that i am different/I think it's an honour", desc: "你们都对自我和世界有深刻思考，能进行灵魂对话" },
-                            { name: "灰苹果 - 眩晕", lyrics: "ねぇ、ちょっぴり考えてみて（喂、仔仔细细思考看看）/何処迄 堕ちて行っちゃうの（最终会往下坠落到哪里为止呢）", desc: "ta能理解你的迷茫，不会强迫你给出答案" }
+                            { name: "灰苹果 - 眩暈", lyrics: "ねぇ、ちょっぴり考えてみて（喂、仔仔细细思考看看）/何処迄 堕ちて行っちゃうの（最终会往下坠落到哪里为止呢）", desc: "ta能理解你的迷茫，不会强迫你给出答案" }
                         ]
                     },
                     "玫红苹果": {
@@ -729,7 +738,7 @@
                         trait: "你没有崩溃。你只是慢慢失去感觉。生活像一条平行线，没有偏差，也没有出口。你甚至还能正常运作，但你知道有什么地方已经不对了。你并不是不想改变。只是那种无力，比疲惫更难对抗。",
                         lyrics: "報酬は入社後並行線で（进了公司之后收入就是平行线啊）/東京は愛せど何も無い（虽然深爱东京 可是我什么都没有）",
                         soulmate: [
-                            { name: "灰苹果 - 眩晕", lyrics: "ねぇ、ちょっぴり考えてみて（喂、仔仔细细思考看看）/何処迄 堕ちて行っちゃうの（最终会往下坠落到哪里为止呢）", desc: "你们有相似的生命体验，能互相理解彼此的无力" },
+                            { name: "灰苹果 - 眩暈", lyrics: "ねぇ、ちょっぴり考えてみて（喂、仔仔细细思考看看）/何処迄 堕ちて行っちゃうの（最终会往下坠落到哪里为止呢）", desc: "你们有相似的生命体验，能互相理解彼此的无力" },
                             { name: "透明苹果 - マ・シェリ", lyrics: "自らが最大級の謎(自己才是那至高无上的谜)", desc: "ta能帮你看清自己，找到改变的方向" }
                         ]
                     },
@@ -841,7 +850,7 @@
                     {
                         question: "After a relationship ends, you slowly return to normal life, but some things don't disappear. What is hardest for you to let go of?",
                         options: [
-                            { text: "Those intense, slightly失控 emotions, they are short but very real", types: ["黄苹果", "黑苹果"] },
+                            { text: "Those intense, slightly uncontrollable emotions, they are short but very real", types: ["黄苹果", "黑苹果"] },
                             { text: "That feeling that as long as the other person exists, everything has meaning", types: ["青苹果", "粉苹果"] },
                             { text: "The ever-changing self in the relationship, you're not even sure which is the real you", types: ["透明苹果", "灰苹果"] },
                             { text: "That position of being needed, watched, and centered", types: ["金苹果", "红苹果"] }
@@ -878,9 +887,9 @@
                         question: "When you look back on your past, what is the one thing you most want to say?",
                         options: [
                             { text: "Those short and passionate moments make up my complete life", types: ["黄苹果", "红苹果"] },
-                            { text: "In the everyday平凡, I lost myself, but also kept myself", types: ["褐色苹果", "灰苹果"] },
+                            { text: "In the everyday ordinary, I lost myself, but also kept myself", types: ["褐色苹果", "灰苹果"] },
                             { text: "I'm always looking for myself, even if confused, I never stop", types: ["透明苹果", "紫苹果"] },
-                            { text: "I've loved, been confused, been颓废, but never gave up on myself", types: ["灰苹果", "白苹果"] }
+                            { text: "I've loved, been confused, been decadent, but never gave up on myself", types: ["灰苹果", "白苹果"] }
                         ]
                     },
                     {
@@ -889,14 +898,14 @@
                             { text: "Often, and it gets more complicated, like I'm a mystery myself", types: ["透明苹果", "灰苹果"] },
                             { text: "Occasionally, use it as a way to understand the world and myself", types: ["紫苹果", "玫红苹果"] },
                             { text: "Yes, but I deliberately keep distance, don't let myself get trapped", types: ["玫红苹果", "蓝苹果"] },
-                            { text: "Rarely, I'm more used to living directly rather than反复审视", types: ["蓝苹果", "橙苹果"] }
+                            { text: "Rarely, I'm more used to living directly rather than lingering over", types: ["蓝苹果", "橙苹果"] }
                         ]
                     },
                     {
-                        question: "If you didn't consider现实 limitations, what kind of person would you want to be:",
+                        question: "If you didn't consider limitations, what kind of person would you want to be:",
                         options: [
                             { text: "Emotions and desires are very direct, no need to suppress myself", types: ["红苹果", "黄苹果"] },
-                            { text: "Can stably love and be loved, no need for反复 confirmation", types: ["青苹果", "橙苹果"] },
+                            { text: "Can stably love and be loved, no need for repeated confirmation", types: ["青苹果", "橙苹果"] },
                             { text: "Completely understand myself, no longer confused", types: ["透明苹果", "紫苹果"] },
                             { text: "Be seen, be recognized, be cared about by the people I care about", types: ["金苹果", "粉苹果"] }
                         ]
@@ -905,13 +914,13 @@
                 results: {
                     "黄苹果": {
                         personality: "Yellow Apple",
-                        song: "Nagaku Mijikai Matsuri",
+                        song: "長く短い祭",
                         keyword: "Short and Passionate",
                         trait: "You know very well that many things won't last long. But that's precisely why you ignite them more seriously. You're not afraid of ending, you're afraid of not happening. You're willing to put on clothes that don't belong to everyday life, paint your emotions too strongly, just to make a certain night happen. You're not unaware that everything will end. You just think - before it ends, someone should have truly lived.",
                         lyrics: "今宵全員が魁、一枚目よ / 皆銘々取り取りの衣装 / 奔放な命被う化粧",
                         soulmate: [
-                            { name: "Red Apple - Honnou", lyrics: "紐 解いて 生命に 擬う / 気紛れを 許して", desc: "Both pursuing the ultimate life experience, you will create countless unforgettable moments together" },
-                            { name: "Black Apple - Yokushitsu", lyrics: "今日は特別に笑ってばかりのあたしは丁度 / さっき一度夢で死んだあんたを仕方無く愛す", desc: "Your understanding of love is equally extreme, you can read the madness and passion in each other's bones" }
+                            { name: "Red Apple - 本能", lyrics: "紐 解いて 生命に 擬う / 気紛れを 許して", desc: "Both pursuing the ultimate life experience, you will create countless unforgettable moments together" },
+                            { name: "Black Apple - 浴室", lyrics: "今日は特別に笑ってばかりのあたしは丁度 / さっき一度夢で死んだあんたを仕方無く愛す", desc: "Your understanding of love is equally extreme, you can read the madness and passion in each other's bones" }
                         ]
                     },
                     "紫苹果": {
@@ -921,52 +930,52 @@
                         trait: "You're used to folding the world inward, not expanding it outward. Many people think you're silent, but you're just refusing to participate in those invalid consensuses. You're not in a hurry to be understood. In fact, you're skeptical of 'being understood' itself. If they say you're different, you won't反驳. You just gently admit it and continue to be yourself.",
                         lyrics: "they say that i am different/I think it's an honour",
                         soulmate: [
-                            { name: "Transparent Apple - Ma Cherie", lyrics: "自らが最大級の謎", desc: "Both having deep thoughts about self and the world, you can communicate on a soul level" },
-                            { name: "Rose Red Apple - Okonomi de", lyrics: "新しく演出して さあ何方でも / …お好きな様に", desc: "Both keeping distance from the world, not disturbing each other, yet understanding each other" }
+                            { name: "Transparent Apple - マ・シェリ", lyrics: "自らが最大級の謎", desc: "Both having deep thoughts about self and the world, you can communicate on a soul level" },
+                            { name: "Rose Red Apple - おこのみで", lyrics: "新しく演出して さあ何方でも / …お好きな様に", desc: "Both keeping distance from the world, not disturbing each other, yet understanding each other" }
                         ]
                     },
                     "金苹果": {
                         personality: "Gold Apple",
-                        song: "Kabukichou no Joou",
+                        song: "歌舞伎町の女王",
                         keyword: "Shining and Dominant",
                         trait: "You know how crowds work. You also know that light doesn't automatically fall on anyone. So you walk in and let it fall on you. You're not seen, you're the one who makes 'seeing' happen. Even if the scene is chaotic, you can establish order in it, like a performance that only belongs to you. You don't need permission to be the center. You just stood there from the beginning.",
                         lyrics: "大遊戯場歌舞伎町 / 今夜からは此の町で / 娘のあたしが女王",
                         soulmate: [
-                            { name: "Rose Red Apple - Okonomi de", lyrics: "新しく演出して さあ何方でも / …お好きな様に", desc: "Their calmness balances your flamboyance, they are your best audience and supporter" },
-                            { name: "Red Apple - Honnou", lyrics: "紐 解いて 生命に 擬う / 気紛れを 許して", desc: "Their vitality adds more color to your stage, you are natural partners" }
+                            { name: "Rose Red Apple - おこのみで", lyrics: "新しく演出して さあ何方でも / …お好きな様に", desc: "Their calmness balances your flamboyance, they are your best audience and supporter" },
+                            { name: "Red Apple - 本能", lyrics: "紐 解いて 生命に 擬う / 気紛れを 許して", desc: "Their vitality adds more color to your stage, you are natural partners" }
                         ]
                     },
                     "青苹果": {
                         personality: "Green Apple",
-                        song: "Koufukuron",
+                        song: "幸福論",
                         keyword: "Innocent Happiness",
                         trait: "Your understanding of happiness is very simple, even dangerously simple. You believe that as long as that person is still breathing in the world, that fact alone is enough. No proof needed, no possession needed, no future needed. You occasionally wonder if you're too easily satisfied. But the next second, you think again - this tenderness shouldn't be corrected.",
                         lyrics: "君が其処に生きているという / 真実だけで幸福なんです",
                         soulmate: [
-                            { name: "Pink Apple - Private", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Both having delicate and soft hearts, you can give each other the tenderest company" },
-                            { name: "Blue Apple - Aozora", lyrics: "本当の自分に正直で飾らないあたしで / 良いのだって教えてくれたね", desc: "Their warmth and stability give you enough security to be yourself" }
+                            { name: "Pink Apple - プライベイト", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Both having delicate and soft hearts, you can give each other the tenderest company" },
+                            { name: "Blue Apple - あおぞら", lyrics: "本当の自分に正直で飾らないあたしで / 良いのだって教えてくれたね", desc: "Their warmth and stability give you enough security to be yourself" }
                         ]
                     },
                     "灰苹果": {
                         personality: "Gray Apple",
-                        song: "Memai",
+                        song: "眩暈",
                         keyword: "Awareness in Falling",
                         trait: "You didn't suddenly lose direction. You watched yourself deviate step by step. You wonder, if you continue, where will you fall. But you don't stop. Strangely, you don't completely resist this fall. Even in certain moments, you feel - that weightlessness is more real than stability.",
                         lyrics: "ねぇ、ちょっぴり考えてみて / 何処迄 堕ちて行っちゃうの",
                         soulmate: [
-                            { name: "Transparent Apple - Ma Cherie", lyrics: "自らが最大級の謎", desc: "They understand your confusion and struggle, won't force you to cheer up" },
-                            { name: "Brown Apple - Marunouchi Sadistic", lyrics: "報酬は入社後並行線で / 東京は愛せど何も無い", desc: "You have similar life experiences, can find resonance in each other" }
+                            { name: "Transparent Apple - マ・シェリ", lyrics: "自らが最大級の謎", desc: "They understand your confusion and struggle, won't force you to cheer up" },
+                            { name: "Brown Apple - 丸ノ内サディスティック", lyrics: "報酬は入社後並行線で / 東京は愛せど何も無い", desc: "You have similar life experiences, can find resonance in each other" }
                         ]
                     },
                     "黑苹果": {
                         personality: "Black Apple",
-                        song: "Yokushitsu",
+                        song: "浴室",
                         keyword: "Dangerous Love",
                         trait: "The way you love people carries a bit of unforgivable成分. You can talk with a smile, even look more relaxed than anyone. But you know very well in your heart that once it starts, you won't just 'like'. You will approach, possess, even experience a loss in your mind, then leave the other person in place. You're not unaware of boundaries. You just never intended to stop at the boundary.",
                         lyrics: "今日は特別に笑ってばかりのあたしは丁度 / さっき一度夢で死んだあんたを仕方無く愛す",
                         soulmate: [
-                            { name: "Yellow Apple - Nagaku Mijikai Matsuri", lyrics: "今宵全員が魁、一枚目よ / 皆銘々取り取りの衣装 / 奔放な命被う化粧", desc: "Both loving passionately and extremely, you can satisfy each other's ultimate desire for love" },
-                            { name: "White Apple - Gibbs", lyrics: "Don't U think? / I wanna be with U", desc: "Their attachment satisfies your possessiveness, you are each other's salvation and abyss" }
+                            { name: "Yellow Apple - 長く短い祭", lyrics: "今宵全員が魁、一枚目よ / 皆銘々取り取りの衣装 / 奔放な命被う化粧", desc: "Both loving passionately and extremely, you can satisfy each other's ultimate desire for love" },
+                            { name: "White Apple - ギブス", lyrics: "Don't U think? / I wanna be with U", desc: "Their attachment satisfies your possessiveness, you are each other's salvation and abyss" }
                         ]
                     },
                     "红苹果": {
@@ -976,85 +985,85 @@
                         trait: "You're not very good at explaining yourself. Because you're more used to just happening. When emotions, desires, impulses appear, you don't rush to categorize them. You're more willing to follow them, even if the direction isn't stable. You're not chaotic, you just haven't weakened yourself. You allow yourself to be fickle, and allow life to stay in its raw state.",
                         lyrics: "紐 解いて 生命に 擬う / 気紛れを 許して",
                         soulmate: [
-                            { name: "Yellow Apple - Nagaku Mijikai Matsuri", lyrics: "今宵全員が魁、一枚目よ / 皆銘々取り取りの衣装 / 奔放な命被う化粧", desc: "Both living by instinct, you can experience the infinite possibilities of life together" },
-                            { name: "Gold Apple - Kabukichou no Joou", lyrics: "大遊戯場歌舞伎町 / 今夜からは此の町で / 娘のあたしが女王", desc: "They provide you a stage, and you bring them infinite vitality" }
+                            { name: "Yellow Apple - 長く短い祭", lyrics: "今宵全員が魁、一枚目よ / 皆銘々取り取りの衣装 / 奔放な命被う化粧", desc: "Both living by instinct, you can experience the infinite possibilities of life together" },
+                            { name: "Gold Apple - 歌舞伎町の女王", lyrics: "大遊戯場歌舞伎町 / 今夜からは此の町で / 娘のあたしが女王", desc: "They provide you a stage, and you bring them infinite vitality" }
                         ]
                     },
                     "粉苹果": {
                         personality: "Pink Apple",
-                        song: "Private",
+                        song: "プライベイト",
                         keyword: "Way of Approaching",
-                        trait: "You rarely say 'I miss you' directly. But you'll repeatedly confirm the other person's existence in other ways. You care about tone, pauses, even an incomplete response. You're not多疑, you just take every detail too seriously. The way you approach someone is very light, but it doesn't stop. You want to see them clearly, and also want to be slowly seen by them.",
+                        trait: "You rarely say 'I miss you' directly. But you'll repeatedly confirm the other person's existence in other ways. You care about tone, pauses, even an incomplete response. You're not , you just take every detail too seriously. The way you approach someone is very light, but it doesn't stop. You want to see them clearly, and also want to be slowly seen by them.",
                         lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…",
                         soulmate: [
-                            { name: "Green Apple - Koufukuron", lyrics: "君が其処に生きているという / 真実だけで幸福なんです", desc: "Both delicate and sensitive, you can catch the subtlest emotional changes in each other" },
-                            { name: "Orange Apple - Shun", lyrics: "生きているうちはずっと句だと", desc: "Their calmness soothes your anxiety, gives you steady happiness" }
+                            { name: "Green Apple - 幸福論", lyrics: "君が其処に生きているという / 真実だけで幸福なんです", desc: "Both delicate and sensitive, you can catch the subtlest emotional changes in each other" },
+                            { name: "Orange Apple - 旬", lyrics: "生きているうちはずっと句だと", desc: "Their calmness soothes your anxiety, gives you steady happiness" }
                         ]
                     },
                     "蓝苹果": {
                         personality: "Blue Apple",
-                        song: "Aozora",
+                        song: "あおぞら",
                         keyword: "Warm Authenticity",
-                        trait: "It's not that you don't have complex emotions. It's just that you don't rush to放大 them. You believe more in a simple state: not pretending, not exaggerating, not刻意 being someone. In this state, you are stable, and also soft. The feeling you give others is like light, not刺眼, but always there. You may not be flamboyant, but few people will forget you.",
+                        trait: "It's not that you don't have complex emotions. It's just that you don't rush to放大 them. You believe more in a simple state: not pretending, not exaggerating, not intentionally being someone. In this state, you are stable, and also soft. The feeling you give others is like light, not刺眼, but always there. You may not be flamboyant, but few people will forget you.",
                         lyrics: "本当の自分に正直で飾らないあたしで / 良いのだって教えてくれたね",
                         soulmate: [
-                            { name: "Green Apple - Koufukuron", lyrics: "君が其処に生きているという / 真実だけで幸福なんです", desc: "Both pursuing simple and true happiness, you can give each other the warmest company" },
-                            { name: "Orange Apple - Shun", lyrics: "生きているうちはずっと句だと", desc: "Your life rhythms are highly compatible, you can enjoy the beauty in平淡 together" }
+                            { name: "Green Apple - 幸福論", lyrics: "君が其処に生きているという / 真実だけで幸福なんです", desc: "Both pursuing simple and true happiness, you can give each other the warmest company" },
+                            { name: "Orange Apple - 旬", lyrics: "生きているうちはずっと句だと", desc: "Your life rhythms are highly compatible, you can enjoy the beauty in simplicity together" }
                         ]
                     },
                     "橙苹果": {
                         personality: "Orange Apple",
-                        song: "Shun",
+                        song: "旬",
                         keyword: "Rhythm of Now",
                         trait: "You're not very执着 about explaining life. You're more inclined to let it happen naturally. You believe that every stage has its 'season', no need to advance, no need to extend. You don't grasp too much, and don't let go deliberately. You're just exactly in that time, doing exactly the right thing.",
                         lyrics: "生きているうちはずっと句だと",
                         soulmate: [
-                            { name: "Blue Apple - Aozora", lyrics: "本当の自分に正直で飾らないあたしで / 良いのだって教えてくれたね", desc: "Both enjoying the present, you can spend calm and beautiful times together" },
-                            { name: "Pink Apple - Private", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Their delicacy adds color to your平淡 life" }
+                            { name: "Blue Apple - あおぞら", lyrics: "本当の自分に正直で飾らないあたしで / 良いのだって教えてくれたね", desc: "Both enjoying the present, you can spend calm and beautiful times together" },
+                            { name: "Pink Apple - プライベイト", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Their delicacy adds color to your simple life" }
                         ]
                     },
                     "透明苹果": {
                         personality: "Transparent Apple",
-                        song: "Ma Cherie",
+                        song: "マ・シェリ",
                         keyword: "Mystery of Self",
                         trait: "You're always looking at yourself. Not simple reflection, but almost non-stop dissection. You ask, why is it like this, not like that. You also doubt if that understood 'me' is just some structure. You're not in a hurry to find the answer. Because you gradually realize - you are the question itself.",
                         lyrics: "自らが最大級の謎",
                         soulmate: [
                             { name: "Purple Apple - 17", lyrics: "they say that i am different/I think it's an honour", desc: "Both having deep thoughts about self and the world, you can have soul conversations" },
-                            { name: "Gray Apple - Memai", lyrics: "ねぇ、ちょっぴり考えてみて / 何処迄 堕ちて行っちゃうの", desc: "They understand your confusion, won't force you to give answers" }
+                            { name: "Gray Apple - 眩暈", lyrics: "ねぇ、ちょっぴり考えてみて / 何処迄 堕ちて行っちゃうの", desc: "They understand your confusion, won't force you to give answers" }
                         ]
                     },
                     "玫红苹果": {
                         personality: "Rose Red Apple",
-                        song: "Okonomi de",
+                        song: "おこのみで",
                         keyword: "Cold Eye and Distance",
-                        trait: "You can participate in any scene, but you won't fully enter. You know how emotions are manufactured, and how relationships work. So you keep a little distance, keep yourself清醒 always. Others think you're cold, but you just haven't lost your judgment. You allow everything to happen, but won't be easily drawn in.",
+                        trait: "You can participate in any scene, but you won't fully enter. You know how emotions are manufactured, and how relationships work. So you keep a little distance, keep yourself sober always. Others think you're cold, but you just haven't lost your judgment. You allow everything to happen, but won't be easily drawn in.",
                         lyrics: "新しく演出して さあ何方でも / …お好きな様に",
                         soulmate: [
-                            { name: "Gold Apple - Kabukichou no Joou", lyrics: "大遊戯場歌舞伎町 / 今夜からは此の町で / 娘のあたしが女王", desc: "You are their best audience, can appreciate their light without getting lost" },
+                            { name: "Gold Apple - 歌舞伎町の女王", lyrics: "大遊戯場歌舞伎町 / 今夜からは此の町で / 娘のあたしが女王", desc: "You are their best audience, can appreciate their light without getting lost" },
                             { name: "Purple Apple - 17", lyrics: "they say that i am different/I think it's an honour", desc: "Both keeping distance from the world, can understand each other without being disturbed" }
                         ]
                     },
                     "褐色苹果": {
                         personality: "Brown Apple",
-                        song: "Marunouchi Sadistic",
+                        song: "丸ノ内サディスティック",
                         keyword: "Slow Corrosion",
                         trait: "You haven't collapsed. You're just slowly losing feeling. Life is like a parallel line, no deviation, no exit. You can even function normally, but you know something is already wrong. It's not that you don't want to change. It's just that powerlessness is harder to fight than exhaustion.",
                         lyrics: "報酬は入社後並行線で / 東京は愛せど何も無い",
                         soulmate: [
-                            { name: "Gray Apple - Memai", lyrics: "ねぇ、ちょっぴり考えてみて / 何処迄 堕ちて行っちゃうの", desc: "You have similar life experiences, can understand each other's powerlessness" },
-                            { name: "Transparent Apple - Ma Cherie", lyrics: "自らが最大級の謎", desc: "They help you see yourself clearly, find direction for change" }
+                            { name: "Gray Apple - 眩暈", lyrics: "ねぇ、ちょっぴり考えてみて / 何処迄 堕ちて行っちゃうの", desc: "You have similar life experiences, can understand each other's powerlessness" },
+                            { name: "Transparent Apple - マ・シェリ", lyrics: "", desc: "They help you see yourself clearly, find direction for change" }
                         ]
                     },
                     "白苹果": {
                         personality: "White Apple",
-                        song: "Gibbs",
+                        song: "ギブス",
                         keyword: "Unremovable Relationship",
                         trait: "It's not that you don't know this relationship limits you. But you can't bear the state of 'not having it' more. You put the other person in a position that's hard to move, even willing to sacrifice part of yourself to maintain it. You're not naive. You've just gotten used to taking attachment as a way of existence.",
                         lyrics: "Don't U think? / I wanna be with U",
                         soulmate: [
-                            { name: "Black Apple - Yokushitsu", lyrics: "今日は特別に笑ってばかりのあたしは丁度 / さっき一度夢で死んだあんたを仕方無く愛す", desc: "Your obsession with relationships can satisfy each other, you are each other's only salvation" },
-                            { name: "Pink Apple - Private", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Their tenderness包容 your anxiety, gives you the security you want" }
+                            { name: "Black Apple - 浴室", lyrics: "今日は特別に笑ってばかりのあたしは丁度 / さっき一度夢で死んだあんたを仕方無く愛す", desc: "Your obsession with relationships can satisfy each other, you are each other's only salvation" },
+                            { name: "Pink Apple - プライベイト", lyrics: "だからいまちゃんと顔を見せて / …只本音の愛をあげたい…", desc: "Their tenderness accepts your anxiety, gives you the security you want" }
                         ]
                     }
                 }
