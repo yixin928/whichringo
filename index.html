@@ -70,7 +70,7 @@
             display: block;
         }
         .test-title {
-            font-size: 2.8em;
+            font-size: 2.0em;
             color: #945233;
             margin-bottom: 12px;
             line-height: 1.2;
@@ -403,6 +403,7 @@
     <script>
         // 语言状态
         let currentLang = 'zh';
+        let currentResultType = null;
 
         // 🔥 苹果人格对应图片
         const appleImages = {
@@ -1086,15 +1087,20 @@
         function toggleLang() {
             currentLang = currentLang === 'zh' ? 'en' : 'zh';
             document.getElementById('lang-btn').textContent = currentLang === 'zh' ? 'EN' : '中文';
-            
-            // 更新所有带data属性的元素
+ 
+            // Update all data-attributed static elements
             document.querySelectorAll('[data-zh]').forEach(el => {
                 el.textContent = el.getAttribute(`data-${currentLang}`);
             });
-            
-            // 如果在测试页面，重新渲染题目
+ 
+            // Re-render quiz if on quiz page
             if (document.getElementById('quiz-page').classList.contains('active')) {
                 showQuestion();
+            }
+ 
+            // Re-render result if on result page
+            if (document.getElementById('result-page').classList.contains('active') && currentResultType) {
+                showResult(currentResultType);
             }
         }
 
