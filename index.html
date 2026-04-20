@@ -482,9 +482,9 @@
                 <button class="btn share-btn" id="share-btn" onclick="shareResult()" data-zh="分享结果" data-en="Share Result">分享结果</button>
              
                  <!-- 访问统计卡（地图+次数） -->
-                <div class="stats-card" id="stats-card" style="visibility:hidden;">
+                <div class="stats-card" id="stats-card" style="display:none;">
                     <div class="stats-title">🍎 Counting Ringo</div>
-                    <div id="visitor-map" style="height:220px; border-radius:12px; overflow:hidden; margin-bottom:16px;"></div>
+                    <div id="visitor-map" style="height:120px; border-radius:12px; overflow:hidden; margin-bottom:16px;"></div>
                     <div class="stats-content" id="stats-info">
                         <span class="loading">Loading...</span>
                     </div>
@@ -1382,16 +1382,6 @@
     margin-top: 24px;
     text-align: center;
 }
-    
-#stats-card {
-    transition: visibility 0s, opacity 0.3s;
-    opacity: 0;
-}
-#stats-card.visible {
-    visibility: visible;
-    opacity: 1;
-}
-    
 .stats-title {
     color: #965336;
     font-size: 16px;
@@ -1527,19 +1517,19 @@ function initMap(locations, myLat, myLng) {
  
 // 渲染统计卡（结果页显示时调用）
 async function renderStats() {
-    // 改前：document.getElementById('stats-card').style.display = 'block';
-    // 改后：
-    document.getElementById('stats-card').classList.add('visible');
-    
-    // 地图初始化也不需要延迟了，直接调用
+    document.getElementById('stats-card').style.display = 'block';
+ 
     const [myLocation, totalVisits, allLocations] = await Promise.all([
         recordVisitorLocation(),
         getVisitCount(),
         getAllLocations()
     ]);
-
-    initMap(allLocations, myLocation.lat, myLocation.lng);
-    visitorMap.invalidateSize(); // 无需 setTimeout，直接调用即可
+ 
+    // 延迟初始化地图（等 DOM 可见）
+    setTimeout(() => {
+        initMap(allLocations, myLocation.lat, myLocation.lng);
+        if (visitorMap) visitorMap.invalidateSize();
+    }, 100);
  
     const statsEl = document.getElementById('stats-info');
     const locationStr = myLocation.city ? `${myLocation.city}, ${myLocation.country}` : '未知地区';
@@ -1553,7 +1543,6 @@ async function renderStats() {
  
 // 刷新后恢复结果页
 document.addEventListener('DOMContentLoaded', function() {
-    initMap([], 0, 0);
     const hash = window.location.hash;
     const match = hash.match(/^#result=(.+)$/);
     if (match) {
