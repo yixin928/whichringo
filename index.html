@@ -484,7 +484,6 @@
                  <!-- 访问统计卡（地图+次数） -->
                 <div class="stats-card" id="stats-card" style="display:none;">
                     <div class="stats-title">🍎 Counting Apples</div>
-                    <div id="visitor-map" style="height:120px; border-radius:12px; overflow:hidden; margin-bottom:16px;"></div>
                     <div class="stats-content" id="stats-info">
                         <span class="loading">Loading...</span>
                     </div>
@@ -1519,17 +1518,10 @@ function initMap(locations, myLat, myLng) {
 async function renderStats() {
     document.getElementById('stats-card').style.display = 'block';
  
-    const [myLocation, totalVisits, allLocations] = await Promise.all([
+    const [myLocation, totalVisits] = await Promise.all([
         recordVisitorLocation(),
-        getVisitCount(),
-        getAllLocations()
+        getVisitCount()
     ]);
- 
-    // 延迟初始化地图（等 DOM 可见）
-    setTimeout(() => {
-        initMap(allLocations, myLocation.lat, myLocation.lng);
-        if (visitorMap) visitorMap.invalidateSize();
-    }, 100);
  
     const statsEl = document.getElementById('stats-info');
     const locationStr = myLocation.city ? `${myLocation.city}, ${myLocation.country}` : '未知地区';
