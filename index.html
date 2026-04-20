@@ -483,7 +483,7 @@
              
                  <!-- 访问统计卡（地图+次数） -->
                 <div class="stats-card" id="stats-card" style="display:none;">
-                    <div class="stats-title">🍎 Counting Ringo</div>
+                    <div class="stats-title">🍎 Counting Apples</div>
                     <div id="visitor-map" style="height:120px; border-radius:12px; overflow:hidden; margin-bottom:16px;"></div>
                     <div class="stats-content" id="stats-info">
                         <span class="loading">Loading...</span>
@@ -1535,7 +1535,7 @@ async function renderStats() {
     const locationStr = myLocation.city ? `${myLocation.city}, ${myLocation.country}` : '未知地区';
  
     if (totalVisits) {
-        statsEl.innerHTML = `Total Apples: <span>${totalVisits}</span><br> This apple is from：<span>${locationStr}</span>`;
+        statsEl.innerHTML = `Visit Times: <span>${totalVisits}</span><br> This apple is from：<span>${locationStr}</span>`;
     } else {
         statsEl.innerHTML = `统计服务暂时不可用<br>你的访问来自：<span>${locationStr}</span>`;
     }
