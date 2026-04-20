@@ -1352,9 +1352,9 @@
             showPage("result-page");
             // 将结果写入 URL，实现刷新保留
             history.replaceState(null, '', '#result=' + encodeURIComponent(type));
-        }
             // 显示结果时渲染统计卡
             renderStats();
+            }
 
         // 重新测试
        function restartQuiz() {
