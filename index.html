@@ -1365,11 +1365,32 @@
         // 分享结果函数
         function shareResult() {
             const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
+    
+            // 方案一：优先用 clipboard API（HTTPS环境）
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert(currentLang === 'zh' ? '🔗 链接已复制，快去分享吧！' : '🔗 Link copied!');
+                }).catch(() => fallbackCopy(url));
+            } else {
+                // 方案二：HTTP环境降级，用隐藏textarea
+                fallbackCopy(url);
+            }
+        }
+
+        function fallbackCopy(url) {
+            const textarea = document.createElement('textarea');
+            textarea.value = url;
+            textarea.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try {
+                document.execCommand('copy');
                 alert(currentLang === 'zh' ? '🔗 链接已复制，快去分享吧！' : '🔗 Link copied!');
-            }).catch(() => {
-                prompt(currentLang === 'zh' ? '复制此链接：' : 'Copy this link:', url);
-            });
+            } catch (e) {
+                prompt(currentLang === 'zh' ? '请手动复制链接：' : 'Copy this link:', url);
+            }
+            document.body.removeChild(textarea);
         }
     </script>
 <style>
